@@ -1,19 +1,11 @@
-"""
-Converting a list of dictionaries with nested sub-dictionaries to a dataframe 
-"""
-
 import os
 import pandas as pd
 import pickle
 
+docs_pickle = '20200521_2203.pickle'
 
-raw_data_file = os.path.join('docs_backups', '20200521_2203.pickle')
-with open(raw_data_file, 'rb') as f:
-    docs = pickle.load(f)['docs']
-
-# If you don't care about renaming, you can simply use a list of the fields 
-# instead (the keys below) and skip the 'rename' part later
-
+# This will be used both for parsing the correct fields as well as naming the columns
+# Alternatively, you can use a simple list and skip the df.columns = .. part
 columns = {
     '_id': 'id',
     '_source.leaderName': 'name',
@@ -30,6 +22,17 @@ columns = {
     '_source.metadata.affiliateId': 'affiliate'
 }
 
-df = pd.json_normalize(docs)[columns].rename(columns=columns)
-df.bookingDate = pd.to_datetime(df.bookingDate)
-df.to_pickle('df.pickle')
+def raw_bookings_to_df(file_path, columns)
+    """ file_path points to a pickle file that contains a list of dictionaries """
+
+    with open(docs_pickle, 'rb') as f:
+        docs = pickle.load(f)['docs']
+
+    df = pd.json_normalize(docs)[columns].rename(columns=columns)
+    return df
+
+if __name__ == '__main__':
+
+    df = file_to_df(docs_pickle)
+    df.bookingDate = pd.to_datetime(df.bookingDate)
+    df.to_pickle('df.pickle')
