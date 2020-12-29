@@ -34,5 +34,9 @@ def raw_bookings_to_df(file_path, columns)
 if __name__ == '__main__':
 
     df = file_to_df(docs_pickle)
+    
+    # Tidy up
     df.bookingDate = pd.to_datetime(df.bookingDate)
+    df.email = df.email.str.lower()
+
     df.to_pickle('df.pickle')
