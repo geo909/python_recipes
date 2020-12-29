@@ -32,4 +32,4 @@ columns = {
 
 df = pd.json_normalize(docs)[columns].rename(columns=columns)
 df.bookingDate = pd.to_datetime(df.bookingDate)
-
+df.to_pickle('df.pickle')
