@@ -14,7 +14,7 @@ with open(raw_data_file, 'rb') as f:
 # If you don't care about renaming, you can simply use a list of the fields 
 # instead (the keys below) and skip the 'rename' part later
 
-fields = {
+columns = {
     '_id': 'id',
     '_source.leaderName': 'name',
     '_source.leaderEmail': 'email',
@@ -30,6 +30,6 @@ fields = {
     '_source.metadata.affiliateId': 'affiliate'
 }
 
-df = pd.json_normalize(docs)[fields].rena
+df = pd.json_normalize(docs)[columns].rename(columns=columns)
 df.bookingDate = pd.to_datetime(df.bookingDate)
 
